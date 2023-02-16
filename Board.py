@@ -1,4 +1,5 @@
 from Player import *
+import os
 
 
 class Board:
@@ -16,6 +17,9 @@ class Board:
     ]
 
     def print_board(self) -> None:
+        
+        os.system('clear')
+        
         print('\n')
 
         print('   ', end='')
@@ -44,11 +48,22 @@ class Board:
         print('\n')
 
     def input_symbol(self, line, column, p: Player) -> None:
+        
+        linee = line
+        columnn = column
+           
+        if self.valid_position(linee,columnn):
+            
+            if p == self.p1:
+                self._board[line][column] = self.p1.symbol
+            else:
+                self._board[line][column] = self.p2.symbol
+            
 
-        if p == self.p1:
-            self._board[line][column] = self.p1.symbol
+    def valid_position(self, line, column) -> bool:
+        
+        if self._board[line][column] != 0:
+            raise Exception("Input symbol only in white zone in the board.")
         else:
-            self._board[line][column] = self.p2.symbol
-
-    def valid_position() -> bool:
-        ...
+            return True
+            

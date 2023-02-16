@@ -63,6 +63,10 @@ if __name__ == '__main__':
                 line, column = board.p2.choose_position_symbol()
                 board.input_symbol(line, column, player2)
                 num_player = 1
+                
 
         except ValueError as e:
+            print(e)
+            
+        except Exception as e:
             print(e)
