@@ -1,8 +1,7 @@
 from Player import *
 
 
-
-class Board:
+class Game_Board:
 
     def __init__(self,  p1: Player, p2: Player) -> None:
         self.p1 = p1
@@ -16,8 +15,8 @@ class Board:
         [0, '|', 0, '|', 0]
     ]
 
-    def print_board(self) -> None:        
-        
+    def print_board(self) -> None:
+
         print('\n')
 
         print('   ', end='')
@@ -46,26 +45,23 @@ class Board:
         print('\n')
 
     def input_symbol(self, line, column, p: Player) -> None:
-        
+
         linee = line
         columnn = column
-           
-        if self.valid_position(linee,columnn):
-            
+
+        if self.valid_position(linee, columnn):
+
             if p == self.p1:
                 self._board[line][column] = self.p1.symbol
             else:
                 self._board[line][column] = self.p2.symbol
-        
 
     def valid_position(self, line, column) -> bool:
-        
+
         if self._board[line][column] != 0:
             raise Exception("Input symbol only in white zone in the board.")
         else:
             return True
-        
-        
+
     def player_win():
         ...
-            
