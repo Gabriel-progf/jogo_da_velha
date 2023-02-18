@@ -40,6 +40,9 @@ if __name__ == '__main__':
                 line, column = board.p1.choose_position_symbol()
 
                 board.input_symbol(line, column, player1)
+                
+                print(board.player_win(player1))
+                
                 qtd_symbol += 1
 
                 id_player = 2
@@ -48,37 +51,14 @@ if __name__ == '__main__':
                 line, column = board.p2.choose_position_symbol()
 
                 board.input_symbol(line, column, player2)
+                
+                print(board.player_win(player2))
+                
                 qtd_symbol += 1
 
                 id_player = 1
 
-
-            result_game = board.player_win(Game_Board._board)
             
-            print(result_game)
-            
-            if result_game != None:
-                print("=====================")
-                if result_game == player1.symbol:
-                        print(f"The Player {player1.symbol} is the winner!! ")
-                        print(f"Congratulations {player1.name}")
-                        
-                
-                elif result_game == player2.symbol:
-                        print(f"The Player {player2.symbol} is the winner!! ")
-                        print(f"Congratulations {player2.name}")
-                
-                print("=====================")
-            
-                break
-            
-            # if qtd_symbol == 9 and result_game == None:
-            #     print("No player win!!!!")
-        
-                
-
-            # os.system('clear')
-
         except ValueError as e:
             print(e)
 

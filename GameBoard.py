@@ -46,10 +46,7 @@ class Game_Board:
 
     def input_symbol(self, line, column, p: Player) -> None:
         
-        linee = line
-        columnn = column
-
-        if self.valid_position(linee, columnn):
+        if self.valid_position(line, column):
 
             if p == self.p1:
                 self._board[line][column] = self.p1.symbol
@@ -65,66 +62,52 @@ class Game_Board:
         else:
             return True
     
-    def player_win(self, board):
-                
-        op1 = [(0,0),(0,2),(0,4)] 
-        op2 = [(2,0),(2,2),(2,4)] 
-        op3 = [(4,0),(4,2),(4,4)]
+    def player_win(self, p: Player):
+        
+        board = self._board      
 
-
-        op4 = [(0,0),(2,0),(4,0)] 
-        op5 = [(0,2),(2,2),(4,2)]
-        op6 = [(0,4),(2,4),(4,4)]  
-
-        op7 = [(0,0),(2,2),(4,4)] 
-        op8 = [(0,4),(2,2),(4,0)]
+        # 0,0
+        if board[0][0] == p.symbol:
+            if board[2][0] == p.symbol and board[4][0] == p.symbol or board[0][2] == p.symbol and board[0][4] == p.symbol or board[2][2] == p.symbol and board[4][4] == p.symbol:
+                return p.symbol
             
-        opctions_to_win = [op1,op2,op3,op4,op5,op6,op7,op8]
-
-
-        positions_array_O = []
-        positions_array_X = []
+        # 0,2
+        elif board[0][2] == p.symbol:
+            if board[0][0] == p.symbol and board[0][4] == p.symbol or board[2][2] == p.symbol and board[4][2] == p.symbol:
+                return p.symbol
+          
+        # 0,4  
+        elif board[0][4] == p.symbol:
+            if board[0][0] == p.symbol and board[0][2] == p.symbol or board[2][4] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[4][0] == p.symbol:
+                return p.symbol
+        # 2,0    
+        elif board[2][0] == p.symbol:
+            if board[0][0] == p.symbol and board[4][0] == p.symbol or board[2][2] == p.symbol and board[2][4] == p.symbol:
+                return p.symbol
         
-        for i in range(0,5):
-            for j in range(0,5):
-                if board[i][j] == 'O':
-                    positions_array_O.append((i,j))
-                elif board[i][j] == 'X':
-                    positions_array_X.append((i,j))
-
-        filter_positions_O = []
-
-        for ops in opctions_to_win:
-            for op in ops:
-                if op in positions_array_O:
-                    if op not in filter_positions_O:
-                        filter_positions_O.append(op)
-                
-
-        filter_opctions_to_win_O = filter_positions_O[:3].copy()
-
-        for ops in opctions_to_win:          
-            if filter_opctions_to_win_O == ops:
-                return 'O' 
-
-        filter_positions_X = []
-
-        for ops in opctions_to_win:
-            for op in ops:
-                if op in positions_array_X:
-                    if op not in filter_positions_X:
-                        filter_positions_X.append(op)
-                
-
-        filter_opctions_to_win_X = filter_positions_X[:3].copy()
-
-        for ops in opctions_to_win:
-            if filter_opctions_to_win_X == ops:
-                return 'X'
-    
-        print(f"{filter_opctions_to_win_O=},{filter_opctions_to_win_X=}")
-
-
+        # 4,0   
+        elif board[4][0] == p.symbol:
+            if board[0][0] == p.symbol and board[2][0] == p.symbol or board[4][2] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[0][4] == p.symbol:
+                return p.symbol
         
+        # 2,2 
+        elif board[2][2] == p.symbol:
+            if board[0][0] == p.symbol and board[4][4] == p.symbol or board[0][2] == p.symbol and board[4][2] == p.symbol or board[2][0] == p.symbol and board[2][4] == p.symbol or board[0][4] == p.symbol and board[4][0] == p.symbol:
+                return p.symbol
+        
+        # 4,2    
+        elif board[4][2] == p.symbol:
+            if board[4][0] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[0][2] == p.symbol:
+                return p.symbol
+        
+        # 4,4    
+        elif board[4][4] == p.symbol:
+            if board[4][0] == p.symbol and board[4][2] == p.symbol or board[2][4] == p.symbol and board[0][4] == p.symbol or board[2][2] == p.symbol and board[0][0] == p.symbol:
+                return p.symbol
+        
+        # 2,4 
+        elif board[2][4] == p.symbol:
+            if board[0][4] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[2][0] == p.symbol:
+                return p.symbol
 
                 
