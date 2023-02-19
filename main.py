@@ -1,15 +1,3 @@
-"""
-     0 1 2 3 4
-          
-0    0 1 0 1 0
-1    1 1 1 1 1
-2    0 1 0 1 0
-3    1 1 1 1 1
-4    0 1 0 1 0
-
-"""
-
-
 from GameBoard import *
 from Player import *
 import os
@@ -18,15 +6,17 @@ if __name__ == '__main__':
 
     id_player = 1
 
-    flag = True
-
+   
+    count = 0
     verific_creation_of_players = True
     
-    qtd_symbol = 0
+    winner = None
 
-    while flag:
+    while True:
 
         try:
+            
+
 
             if verific_creation_of_players:
                 player1, player2 = Player.create_players()
@@ -41,10 +31,8 @@ if __name__ == '__main__':
 
                 board.input_symbol(line, column, player1)
                 
-                print(board.player_win(player1))
+                winner = board.player_win(player1)
                 
-                qtd_symbol += 1
-
                 id_player = 2
             else:
                 print(f"==== Player {id_player}: {player2.name} ====")
@@ -52,15 +40,29 @@ if __name__ == '__main__':
 
                 board.input_symbol(line, column, player2)
                 
-                print(board.player_win(player2))
-                
-                qtd_symbol += 1
+                winner = board.player_win(player2)
 
                 id_player = 1
-
             
-        except ValueError as e:
-            print(e)
-
+                
+            os.system('clear')
+            
+            count += 1
+            
+            if winner:
+                board.print_board()
+                print("==========================")
+                print(f"PLAYER: {winner.name}")
+                print(f"{winner.symbol} WIN!")
+                print("==========================")
+                break
+            elif board.game_tie(winner, count):
+                
+                board.print_board()
+                print("==========================")
+                print(f"        GAME TIA         ") 
+                print("==========================")
+                break
+            
         except Exception as e:
             print(e)
