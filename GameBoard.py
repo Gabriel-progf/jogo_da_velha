@@ -64,8 +64,6 @@ class Game_Board:
         
     def game_tie(self, p, x):
 
-        x += 1
-
         if p == None and x == 9:
             return True
 
