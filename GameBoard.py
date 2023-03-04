@@ -45,15 +45,13 @@ class Game_Board:
         print('\n')
 
     def input_symbol(self, line, column, p: Player) -> None:
-        
+
         if self.valid_position(line, column):
 
             if p == self.p1:
                 self._board[line][column] = self.p1.symbol
             else:
                 self._board[line][column] = self.p2.symbol
-                
-        
 
     def valid_position(self, line, column) -> bool:
 
@@ -61,70 +59,24 @@ class Game_Board:
             raise Exception("Input symbol only in white zone in the board.")
         else:
             return True
-        
+
     def game_tie(self, p, x):
 
         if p == None and x == 9:
             return True
 
     def player_win(self, p: Player):
-        """
-                 0   2   4
 
-            0    0 1 0 1 0
-                 1 1 1 1 1
-            2    0 1 0 1 0
-                 1 1 1 1 1
-            4    0 1 0 1 0
-
-        """
-        
-        
         board = self._board
-        
 
-        # 0,0
-        if board[0][0] == p.symbol:
-            if board[2][0] == p.symbol and board[4][0] == p.symbol or board[0][2] == p.symbol and board[0][4] == p.symbol or board[2][2] == p.symbol and board[4][4] == p.symbol:
-                return p
-            
-        # 0,2
-        elif board[0][2] == p.symbol:
-            if board[0][0] == p.symbol and board[0][4] == p.symbol or board[2][2] == p.symbol and board[4][2] == p.symbol:
-                return p
-          
-        # 0,4  
-        elif board[0][4] == p.symbol:
-            if board[0][0] == p.symbol and board[0][2] == p.symbol or board[2][4] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[4][0] == p.symbol:
-                return p
-        # 2,0    
-        elif board[2][0] == p.symbol:
-            if board[0][0] == p.symbol and board[4][0] == p.symbol or board[2][2] == p.symbol and board[2][4] == p.symbol:
-                return p
-        
-        # 4,0   
-        elif board[4][0] == p.symbol:
-            if board[0][0] == p.symbol and board[2][0] == p.symbol or board[4][2] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[0][4] == p.symbol:
-                return p
-        
-        # 2,2 
-        elif board[2][2] == p.symbol:
-            if board[0][0] == p.symbol and board[4][4] == p.symbol or board[0][2] == p.symbol and board[4][2] == p.symbol or board[2][0] == p.symbol and board[2][4] == p.symbol or board[0][4] == p.symbol and board[4][0] == p.symbol:
-                return p
-        
-        # 4,2    
-        elif board[4][2] == p.symbol:
-            if board[4][0] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[0][2] == p.symbol:
-                return p
-        
-        # 4,4    
-        elif board[4][4] == p.symbol:
-            if board[4][0] == p.symbol and board[4][2] == p.symbol or board[2][4] == p.symbol and board[0][4] == p.symbol or board[2][2] == p.symbol and board[0][0] == p.symbol:
-                return p
-        
-        # 2,4 
-        elif board[2][4] == p.symbol:
-            if board[0][4] == p.symbol and board[4][4] == p.symbol or board[2][2] == p.symbol and board[2][0] == p.symbol:
-                return p
-
-                
+        if (board[0][0] == p.symbol and board[2][0] == p.symbol and board[4][0] == p.symbol) or\
+            (board[0][0] == p.symbol and board[0][2] == p.symbol and board[0][4] == p.symbol) or\
+            (board[0][0] == p.symbol and board[2][2] == p.symbol and board[4][4] == p.symbol) or\
+            (board[0][2] == p.symbol and board[2][2] == p.symbol and board[4][2] == p.symbol) or\
+            (board[0][4] == p.symbol and board[2][4] == p.symbol and board[4][4] == p.symbol) or\
+            (board[0][4] == p.symbol and board[2][2] == p.symbol and board[4][0] == p.symbol) or\
+            (board[2][0] == p.symbol and board[2][2] == p.symbol and board[2][4] == p.symbol) or\
+                (board[4][0] == p.symbol and board[4][2] == p.symbol and board[4][4] == p.symbol):
+            return p
+        else:
+            return None
